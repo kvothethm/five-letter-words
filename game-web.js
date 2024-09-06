@@ -20,6 +20,7 @@ const gameWeb = {
                 </header>
                 <main class="login__form">
                     <h2>Please login with your Username below</h2>
+                    <h3>If you don't have a Username, this will create one for you!</h3>
                     <p>You may only use letters in your username.</p>
                     <form action="/session" method="POST">
                         <label>Username 
@@ -54,11 +55,13 @@ const gameWeb = {
     <main>        
         <h2>Hello, ${username}!</h2>
         <p>Welcome to Five-Letter Words, the game where the computer chooses a five-letter-word and you try to guess it.</p>
-        <p>The list of possible words is:</p>
+        <p>Make a guess from the following list of words:</p>
         ${gameWeb.getWordList(words)}        
         ${gameWeb.getGuessList(game)}
-        ${gameWeb.getGuessNumber(game)}
-        ${gameWeb.getLastGuessStatus(game)}
+        <div class="status_input">
+            ${gameWeb.getGuessNumber(game)}
+            ${gameWeb.getLastGuessStatus(game)}
+        </div>
         ${gameWeb.getGameMessage(game, username)}
         </div>
         <div class="button__wrapper"
@@ -82,7 +85,7 @@ const gameWeb = {
     //displays the list of valid words
     getWordList: function (words) {
         return `<ul class="word__list">` + words.map((word) => `
-        <li class="guessable__word>${word}</li>
+        <li class="guessable__word">${word}</li>
         `).join('') +
             `</ul>`;
     },
@@ -93,7 +96,7 @@ const gameWeb = {
         }
 
         return `
-        <p>Here is a list of words you have already guessed and the number of matches:</p>
+        <p>Here is a list of words you have already guessed followed the number of letters that match with the Five-Letter Word:</p>
         <ol class="guess__list">` + game.guesses.map((guess) => `
         <li class="guessed__word">${guess.guess}: ${guess.matches}</li>
         `).join('') +
@@ -104,7 +107,7 @@ const gameWeb = {
         //Condition for 0 guesses
         if (!game.guesses.length) {
             return `
-            <p>Type your guess below. Only letters will be accepted.</p>
+            <p>Type your guess below. Only words from the above list will be accepted.</p>
                 
                 <form action="/guess" method="POST">
                     <label>Guess
