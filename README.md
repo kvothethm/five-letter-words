@@ -1,6 +1,6 @@
 # Five-Letter Words - Server-side Dynamic Site
 
-## Functional Requirements
+## Functionality
 
 For all the below: 
 - A "game" means one specific secret word is chosen and the user takes multiple turns making guesses
